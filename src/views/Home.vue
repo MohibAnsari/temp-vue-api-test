@@ -1,13 +1,5 @@
 <template>
   <div class="home">
-   <!--  <div>
-    <img
-      @mouseover="isPaused=true;"
-      @mouseleave="isPaused=false;"
-      alt="Vue logo"
-      :src="currentObject.primaryImageSmall"
-    />
-  </div>   -->
   <!-- @mouseover="isPaused=true;" -->
     <!-- @mouseleave="isPaused=false;" -->
   <b-card no-body class="overflow-hidden mx-auto" style="max-width: 70%;" 
@@ -21,16 +13,10 @@
           <b-card-title>
             {{currentObject.title}}
           </b-card-title>
-          <!-- <b-card-text>
-            {{currentObject.department}}<br>
-            {{currentObject.accessionYear}}<br>
-            {{currentObject.objectDate}}<br>
-            {{currentObject.creditLine}}<br>
-          </b-card-text> -->
         </b-card-body>
       <b-button href="javascript:;" @click="show=!show;isPaused=show;" variant="dark">{{show?'Hide Details':'Show Details'}}</b-button>
       <b-card v-if="show" style="height: 80vh;overflow-y: scroll;">
-        
+
           <b-card-text>
             {{currentObject.department}}<br>
             {{currentObject.accessionYear}}<br>
@@ -76,11 +62,6 @@ export default {
   mounted() {
     this.apicall();
   },
-  // filters: {
-  //   pretty: function(value) {
-  //     return JSON.stringify(JSON.parse(value), null, 2);
-  //   }
-  // },
   methods: {
     apicall() {
       let newUrl = this.mainUrl + "search";
@@ -91,7 +72,7 @@ export default {
       this.axios
         .get(newUrl, { params: queryParams })
         .then((response) => {
-          console.log(response.data);
+          // console.log(response.data);
           this.objectWithImages = response.data.objectIDs;
         });
     },
@@ -108,15 +89,6 @@ export default {
           this.time+=1;
         }
       }
-    // makeToast(variant = null, title, msg, autohide = true) {
-    //   this.$bvToast.toast(msg, {
-    //     title: title,
-    //     toaster: "b-toaster-top-center",
-    //     variant: variant,
-    //     solid: true,
-    //     noAutoHide: !autohide,
-    //   });
-    // },
   },
   watch: {
     objectWithImages: function (newval) {
@@ -125,7 +97,6 @@ export default {
       this.objectapicall(newval[0]);
     },
     time: function (newval) {
-      // console.log(oldval, newval);
       if(newval%10==0){
       // console.log(oldval, newval, newval/10);
         this.objectapicall(this.objectWithImages[newval/10]);
@@ -135,7 +106,6 @@ export default {
       }
     },
     isPaused: function (newval) {
-      // console.log(oldval, newval);
       if(newval){
         console.log('interval Paused');
       }
